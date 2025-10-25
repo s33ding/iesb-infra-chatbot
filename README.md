@@ -31,7 +31,10 @@ graph TB
     
     subgraph "Infrastructure"
         TF[🏗️ Terraform<br/>Infrastructure]
-        EC2[💻 EC2 Instance<br/>Student Environment]
+        subgraph EC2[💻 EC2 Instance]
+            ENV[Student Environment]
+            FAISS[(🗄️ FAISS<br/>Vector Database)]
+        end
         DDB[(DynamoDB<br/>Credentials)]
         IAM[🔐 IAM<br/>User Permissions]
     end
