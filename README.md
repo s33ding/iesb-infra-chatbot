@@ -94,8 +94,9 @@ graph TB
 - Monitoring and maintenance tools
 
 ### For Students
-- AWS console access to manage EC2 instances
-- Access to SageMaker models for AI development
+- AWS console access with EC2 readonly permissions
+- EC2 Instance Connect access to the shared development instance
+- Access to Amazon Bedrock models for AI development
 - Shared development environment for chatbot projects
 
 ## Scripts
