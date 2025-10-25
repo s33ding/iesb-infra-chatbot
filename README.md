@@ -71,7 +71,7 @@ graph TB
     
     IAM --> Teacher
     IAM --> Students
-    IAM --> Bedrock
+    IAM --> EC2
 ```
 
 ## Features
