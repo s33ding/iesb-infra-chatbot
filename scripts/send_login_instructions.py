@@ -14,39 +14,38 @@ def send_login_instructions(credentials):
     sns = boto3.client('sns', region_name='us-east-1')
     topic_arn = 'arn:aws:sns:us-east-1:248189947068:dataiesb-chatbot'
     
-    for cred in credentials:
-        message = f"""
-EC2 Instance Login Instructions - {cred.get('student_name', 'Student')}
+    # Sort credentials by student number
+    def get_student_number(cred):
+        student_name = cred.get('student_name', 'Student-0')
+        return int(student_name.split('-')[1])
+    
+    sorted_credentials = sorted(credentials, key=get_student_number)
+    
+    message_parts = ["EC2 Instance Login Instructions - All Students\n"]
+    
+    for i, cred in enumerate(sorted_credentials, 1):
+        message_parts.append(f"""
+=== STUDENT {i}: {cred.get('student_name', f'Student {i}')} ===
 
-=== SSH Access ===
-Instance ID: {cred.get('instance_id', 'N/A')}
-Username: {cred.get('username', 'N/A')}
-Password: {cred.get('password', 'N/A')}
-Public IP: {cred.get('public_ip', 'N/A')}
+AWS Console Access:
+Console URL: https://248189947068.signin.aws.amazon.com/console
+Username: chatbot-student-{i}
+Password: {cred.get('console_password', 'N/A')}
 
-SSH Command:
-ssh {cred.get('username', 'ec2-user')}@{cred.get('public_ip', 'IP_ADDRESS')}
-
-=== AWS CLI Access ===
+AWS CLI Access:
+Username: chatbot-student-{i}
 Access Key ID: {cred.get('cli_access_key', 'N/A')}
 Secret Access Key: {cred.get('cli_secret_key', 'N/A')}
-
-CLI Configuration:
-aws configure set aws_access_key_id {cred.get('cli_access_key', 'ACCESS_KEY')}
-aws configure set aws_secret_access_key {cred.get('cli_secret_key', 'SECRET_KEY')}
-aws configure set default.region us-east-1
-
-=== AWS Console Access ===
-Login URL: {cred.get('login_url', 'https://console.aws.amazon.com/')}
-
-Note: Teacher has full EC2 access permissions.
-"""
-        
-        sns.publish(
-            TopicArn=topic_arn,
-            Message=message,
-            Subject=f"Login Instructions - {cred.get('student_name', 'Student')}"
-        )
+""")
+    
+    message_parts.append("\nNote: Teacher has full EC2 access permissions.")
+    full_message = "".join(message_parts)
+    
+    sns.publish(
+        TopicArn=topic_arn,
+        Message=full_message,
+        Subject=f"Login Instructions - All {len(sorted_credentials)} Students"
+    )
 
 if __name__ == "__main__":
     credentials = get_credentials_from_dynamodb()

@@ -1,20 +1,25 @@
+# AWS Credentials
+.aws/
+*.pem
+*.key
+credentials
+config
+
 # Terraform
 *.tfstate
 *.tfstate.*
 .terraform/
 .terraform.lock.hcl
-*.tfvars
-*.tfvars.json
+terraform.tfvars
+*.auto.tfvars
 
-# AWS credentials
-.aws/
-*.pem
-*.key
-
-# Environment variables
+# Python
+__pycache__/
+*.pyc
+*.pyo
 .env
-.env.local
-.env.*.local
+.venv/
+venv/
 
 # IDE
 .vscode/
@@ -28,3 +33,4 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
