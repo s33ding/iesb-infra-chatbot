@@ -1,6 +1,6 @@
 # IESB Infrastructure Chatbot
 
-AWS infrastructure automation for IESB Data Science classroom. This project supports teachers and students by providing the necessary infrastructure and tools for developing chatbots using Amazon Bedrock and LangChain within EC2 instances for educational purposes.
+AWS infrastructure automation for IESB Data Science classroom. This project supports teachers and students by providing the necessary infrastructure and tools for developing chatbots using Amazon Bedrock and LangChain within an EC2 instance for educational purposes.
 
 ## Project Goal
 
@@ -8,18 +8,18 @@ The goal is to support the infrastructure needs of Data Science education and pr
 
 ## Educational Context
 
-This infrastructure supports a Data Science classroom where students learn to build AI chatbots. Each student receives a dedicated EC2 instance with pre-configured environments for developing applications using:
+This infrastructure supports a Data Science classroom where students learn to build AI chatbots. Students share a dedicated EC2 instance with pre-configured environments for developing applications using:
 - **Amazon Bedrock** for accessing Large Language Models (LLMs)
 - **LangChain** as the application development framework
 - **Python ecosystem** for data science and AI development
 
 ## How It Works
 
-1. **Infrastructure Provisioning**: Roberto uses Terraform to create EC2 instances, DynamoDB table, and IAM permissions
+1. **Infrastructure Provisioning**: Roberto uses Terraform to create an EC2 instance, DynamoDB table, and IAM permissions
 2. **Credential Management**: Terraform automatically stores student login credentials in DynamoDB
 3. **Notification System**: Roberto runs a Python script that retrieves credentials from DynamoDB and sends login instructions to the teacher via SNS
 4. **Distribution**: Teacher receives the credentials and forwards them to students
-5. **Student Access**: Students use the credentials to access their individual EC2 instances for chatbot development
+5. **Student Access**: Students use the credentials to access the shared EC2 instance for chatbot development
 
 ## Architecture
 
@@ -80,7 +80,7 @@ graph TB
 ## Features
 
 - **Teacher Support Tools**: Automated provisioning and management scripts
-- **Student Environment Setup**: Pre-configured EC2 instances ready for chatbot development
+- **Student Environment Setup**: Pre-configured EC2 instance ready for chatbot development
 - **Credential Management**: Secure storage and automated distribution of login credentials
 - **Communication System**: Email notifications for login instructions and updates
 - **Educational Focus**: Eliminates infrastructure complexity, allowing focus on AI/ML learning
@@ -96,7 +96,7 @@ graph TB
 ### For Students
 - AWS console access to manage EC2 instances
 - Access to SageMaker models for AI development
-- Individual development environments for chatbot projects
+- Shared development environment for chatbot projects
 
 ## Scripts
 
@@ -109,11 +109,11 @@ python3 scripts/send_login_instructions.py
 
 ## Student Development Environment
 
-Each EC2 instance includes pre-configured development tools and frameworks for chatbot development.
+The EC2 instance includes pre-configured development tools and frameworks for chatbot development.
 
 ## AWS Services Used
 
-- **EC2**: Individual student development instances
+- **EC2**: Shared student development instance
 - **DynamoDB**: Secure credential storage and management
 - **SNS**: Email notification system for login instructions
 - **Amazon Bedrock**: LLM model access for chatbot development
